@@ -1,0 +1,5 @@
+/alurabank/node_modules/
+/alurabank/app/.vscode/
+/alurabank/app/js/
+/alurabank/package-lock.json
+*.DS_Store
