@@ -8,7 +8,8 @@ export class Negociacoes {
     }
 
     paraArray(): Negociacao[] {
-        return [].concat(this._negociacoes);
+        //the sintaxe below is to indicate that a new array is returned rather than the actual array
+        return ([] as Negociacao[]).concat(this._negociacoes);
      }
 
 }
