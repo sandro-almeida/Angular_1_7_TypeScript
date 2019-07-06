@@ -35,9 +35,9 @@ export class NegociacaoController {
 
         // imprime a lista de negociações encapsulada 
         this._negociacoes.paraArray().forEach(negociacao => {
-            console.log(negociacao.data);
-            console.log(negociacao.quantidade);
-            console.log(negociacao.valor);
+            console.log("Data: ", negociacao.data.getFullYear() + "-" + (negociacao.data.getMonth()+1) + "-" + negociacao.data.getDate());
+            console.log("Quantidade: ", negociacao.quantidade);
+            console.log("Valor: ", negociacao.valor);
         })
 
         console.log(negociacao);
