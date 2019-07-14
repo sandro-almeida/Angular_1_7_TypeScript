@@ -51,6 +51,28 @@ export class NegociacaoController {
         console.log(negociacao);
     }
 
+    importarDados() {
+
+        function isOk(res: Response) {
+            if(res.ok) {
+                return res;
+            } else {
+                throw new Error(res.statusText);
+            }
+        }
+
+        fetch('http://localhost:8080/dados')
+            .then(res => isOk(res))
+            .then(res => res.json()) //json() method converts Json para JavaScript objects
+            .then((dados: any[]) => {
+                dados
+                    .map(dado => new Negociacao (new Date(), dado.vezes, dado.montante))
+                    .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+                this._negociacoesView.update(this._negociacoes);
+            })
+            .catch(err => console.log('Erro: ', err.message));
+    }
+
     private _ehDiaUtil(date : Date) : boolean {
         return date.getDay() != DiaDaSemana.Sabado && date.getDay() != DiaDaSemana.Domingo;
     }
