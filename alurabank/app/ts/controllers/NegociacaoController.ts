@@ -49,7 +49,7 @@ export class NegociacaoController {
     }
 
     @throttle()
-    importarDados() {
+   async importarDados() {
 
         function isOk(res: Response) {
             if(res.ok) {
@@ -59,25 +59,27 @@ export class NegociacaoController {
             }
         }
 
-        this._service.obterNegociacoes(isOk)
-            .then(negociacoesParaImportar => {
-                const negociacoesJaImportadas = this._negociacoes.paraArray();
+        try {
+            const negociacoesParaImportar = await this._service.obterNegociacoes(isOk);
 
-                if (typeof negociacoesParaImportar === 'object') {
-                    negociacoesParaImportar
-                        .filter(negociacao => 
-                            !negociacoesJaImportadas.some(jaImportada => 
-                                negociacao.ehIgual(jaImportada)))
-                        .forEach(negociacao => 
-                            this._negociacoes.adiciona(negociacao));
-                    this._negociacoesView.update(this._negociacoes);
-                }
-            })
-            .catch(err => {
-                this._mensagemView.update(err.message);
-                //wait for a time period and clean up the message
-                setTimeout((f : any) => this._mensagemView.update(''), 3000);
-            }); 
+            const negociacoesJaImportadas = this._negociacoes.paraArray();
+
+            if (typeof negociacoesParaImportar === 'object') {
+                negociacoesParaImportar
+                    .filter(negociacao => 
+                        !negociacoesJaImportadas.some(jaImportada => 
+                            negociacao.ehIgual(jaImportada)))
+                    .forEach(negociacao => 
+                        this._negociacoes.adiciona(negociacao));
+                this._negociacoesView.update(this._negociacoes);
+            }; 
+        } catch(err) {
+            this._mensagemView.update(err.message);
+            //wait for a time period and clean up the message
+            setTimeout((f : any) => this._mensagemView.update(''), 3000);
+        }
+
+        
     }
 
     private _ehDiaUtil(date : Date) : boolean {
