@@ -1,6 +1,6 @@
-import { Imprimivel, Igualavel } from "../helpers/index";
+import { MinhasInterfaces } from "../helpers/index";
 
-export class Negociacao implements Imprimivel, Igualavel<Negociacao> {
+export class Negociacao implements MinhasInterfaces<Negociacao> {
     
     constructor(readonly data: Date, readonly quantidade: number, readonly valor: number) {
     }

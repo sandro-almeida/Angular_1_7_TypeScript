@@ -1,7 +1,7 @@
 import { Negociacao} from './Negociacao';
-import { Imprimivel, Igualavel } from '../helpers/index';
+import { MinhasInterfaces } from '../helpers/index';
 
-export class Negociacoes implements Imprimivel, Igualavel<Negociacoes> {
+export class Negociacoes implements MinhasInterfaces<Negociacoes> {
     private _negociacoes: Negociacao[] = [];
 
     adiciona(negociacao: Negociacao): void {
