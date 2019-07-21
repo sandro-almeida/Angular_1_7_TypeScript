@@ -11,7 +11,10 @@ export class NegociacaoService {
             .then((dados: NegociacaoParcial[]) => //using external API interface NegociacaoParcial
                 dados.map(dado => new Negociacao (new Date(), dado.vezes, dado.montante))
             )
-            .catch(err => console.log('Erro: ', err.message));
+            .catch(err => {
+                console.log('Erro: ', err.message);
+                throw new Error('Não foi possível efetuar esta consulta. Tente mais tarde.');
+            });
     }
 }
 

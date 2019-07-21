@@ -72,6 +72,11 @@ export class NegociacaoController {
                             this._negociacoes.adiciona(negociacao));
                     this._negociacoesView.update(this._negociacoes);
                 }
+            })
+            .catch(err => {
+                this._mensagemView.update(err.message);
+                //wait for a time period and clean up the message
+                setTimeout((f : any) => this._mensagemView.update(''), 3000);
             }); 
     }
 
