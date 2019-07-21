@@ -2,6 +2,7 @@ import { NegociacoesView, MensagemView } from './../views/index';
 import { Negociacoes, Negociacao } from '../models/index';
 import { domInject, throttle } from '../helpers/decorators/index';
 import { NegociacaoService } from '../services/index';
+import { imprime } from '../helpers/index';
 
 export class NegociacaoController {
 
@@ -42,14 +43,9 @@ export class NegociacaoController {
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação adicionada com sucesso !');
 
-        // imprime a lista de negociações encapsulada 
-        this._negociacoes.paraArray().forEach(negociacao => {
-            console.log("Data: ", negociacao.data.getFullYear() + "-" + (negociacao.data.getMonth()+1) + "-" + negociacao.data.getDate());
-            console.log("Quantidade: ", negociacao.quantidade);
-            console.log("Valor: ", negociacao.valor);
-        })
+        // imprime a lista de negociações encapsulada e tambem a nova negociacao adicionada
+        imprime(negociacao, this._negociacoes);
 
-        console.log(negociacao);
     }
 
     @throttle()
